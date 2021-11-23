@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DATE</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/date.css" />
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>CLOCK</h1>
+      <div id="dateBox">
+        <div class="txt01">2021 / Nov / 23</div>
+        <div class="txt02">Tue</div>
+      </div>
+      <div id="timeBox">AM 11 : 53 : 29</div>
+      <div id="analog">
+        <span class="hour"></span>
+        <span class="min"></span>
+        <span class="sec"></span>
+      </div>
+    </div>
+  </body>
+  <script>
+    const months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+    const days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+
+    function addZero(num) {
+      // num : parameter(매개변수)
+      let result;
+      if (num < 10) {
+        result = "0" + num;
+        return result; // 함수 값을 돌려받을 때 return을 함수 안에 적어야댐
+        // 함수가 return을 만나면 값을 돌려주고 실행 종료(밑에 조건은 실행안됨)
+      } //else {    2가지 조건일 경우 else는 안적어도 됨
+      result = num;
+      return result;
+      // }
+    }
+    // 굳이 result 필요하지는 않음
+    // 보통은 문자, 숫자 구분해서 출력해야됨
+    // 리모컨.채널(11) = MBC
+    // 리모컨.채널(5) = SBS
+    const txt01 = document.querySelector("#dateBox .txt01");
+    const txt02 = document.querySelector("#dateBox .txt02");
+    const timeBox = document.querySelector("#timeBox");
+    const itemHour = document.querySelector("#analog .hour");
+    const itemMin = document.querySelector("#analog .min");
+    const itemSec = document.querySelector("#analog .sec");
+
+    function showTime() {
+      const now = new Date(); // 실행되는 시점의 시간을 선언
+      // now를 함수 위에 적용하면 처음 1초만 진행되고 실시간으로 변경 안됨
+      const year = now.getFullYear(); // 4자리 연도
+      const month = now.getMonth(); // 0 ~ 11 월
+      const date = now.getDate(); // 일
+      const day = now.getDay(); // 0~6 요일
+      let hour = now.getHours(); // 0~23 시간
+      const min = now.getMinutes(); // 0~59 분
+      const sec = now.getSeconds(); // 0~59 초
+
+      let apm;
+      if (hour < 12) {
+        apm = "AM";
+        // hour = hour;
+      } else {
+        apm = "PM";
+        hour = hour - 12;
+      }
+
+      txt01.textContent = `${year} / ${months[month]} / ${date}`;
+      txt02.textContent = days[day];
+      timeBox.textContent = `${apm} ${addZero(hour)} : ${addZero(min)} : ${addZero(sec)}`;
+      // hour = addZero(hour);
+      // min = addZero(min);
+      // sec = addZero(sec);
+
+      /*
+      if (hour < 10) {
+        hour = "0" + hour;
+      }
+      if (min < 10) {
+        min = "0" + min;
+      }
+      if (sec < 10) {
+        sec = "0" + sec;
+      }
+      */
+
+      itemHour.style.transform = `rotate(${hour * 30 + min * 0.5}deg`;
+      itemMin.style.transform = `rotate(${min * 6 + sec * 0.1}deg)`;
+      itemSec.style.transform = `rotate(${sec * 6}deg)`;
+    }
+    showTime();
+    // 마지막에 실행 안하면 처음에 셋팅한 부분이 보이고 바뀜
+    setInterval(showTime, 1000);
+
+    // 이벤트를 걸어서 1초마다 실행하게 해보기
+    let count = 0;
+    function 실행함수() {
+      // -- function declation 함수선언식
+      // = const 실행함수 = function () {   -- function expression 함수표현식
+      count = count + 1;
+      console.log(count);
+    }
+    실행함수();
+    setInterval(실행함수, 1000); //기준 : ms(1/1000초)
+  </script>
+</html>
