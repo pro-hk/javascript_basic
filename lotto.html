@@ -13,77 +13,124 @@
     <script src="js/gsap/gsap.min.js"></script>
   </head>
   <body>
-    <div id="lottoPaper">
-      <!-- <ul>
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-        <li>4</li>
-        <li>5</li>
-        <li>6</li>
-      </ul> -->
+    <div class="wrap">
+      <h1>How Much Lotto</h1>
+      <div class="btns">
+        <label>
+          <input type="radio" name="lotto" value="1" />
+          <span>1</span>
+        </label>
+        <label>
+          <input type="radio" name="lotto" value="2" />
+          <span>2</span>
+        </label>
+        <label>
+          <input type="radio" name="lotto" value="3" />
+          <span>3</span>
+        </label>
+        <label>
+          <input type="radio" name="lotto" value="4" />
+          <span>4</span>
+        </label>
+        <label>
+          <input type="radio" name="lotto" value="5" />
+          <span>5</span>
+        </label>
+        <!-- <button data-game="1">1</button>
+        <button data-game="2">2</button>
+        <button data-game="3">3</button>
+        <button data-game="4">4</button>
+        <button data-game="5">5</button> -->
+      </div>
+      <div id="lottoPaper">
+        <!-- <ul>
+          <li>1</li>
+          <li>2</li>
+          <li>3</li>
+          <li>4</li>
+          <li>5</li>
+          <li>6</li>
+        </ul> -->
+      </div>
     </div>
   </body>
   <script>
     const lottoPaper = document.querySelector("#lottoPaper");
-    const lotto = [];
-    const myLotto = [];
-    for (let i = 1; i < 46; i++) {
-      lotto.push(i);
-    }
-    for (let j = 0; j < 6; j++) {
-      const random = Math.floor(Math.random() * lotto.length);
-      const selected = lotto.splice(random, 1)[0];
-      myLotto.push(selected);
-      // console.log(selected);
-    }
-    myLotto.sort(function (a, b) {
-      return a - b;
-    });
-    const ul = document.createElement("ul");
-    lottoPaper.appendChild(ul);
-    // appendChild : 자식으로 추가
-    for (let k = 0; k < 6; k++) {
-      /* if (myLotto[k] <= 10) {
-        ul.innerHTML += `
-        <li class="yellow">${myLotto[k]}</li>
-        `;
-      } else if (myLotto[k] <= 20) {
-        ul.innerHTML += `
-        <li class="blue">${myLotto[k]}</li>
-        `;
-      } else if (myLotto[k] <= 30) {
-        ul.innerHTML += `
-        <li class="red">${myLotto[k]}</li>
-        `;
-      } else if (myLotto[k] <= 40) {
-        ul.innerHTML += `
-        <li class="balck">${myLotto[k]}</li>
-        `;
-      } else {
-        ul.innerHTML += `
-        <li class="green">${myLotto[k]}</li>
-        `;
+
+    const makeLotto = () => {
+      const lotto = []; // 1~45까지 들어갈 배열
+      const myLotto = []; // 추출된 값 들어갈 배열
+      for (let i = 1; i < 46; i++) {
+        lotto.push(i); // 1~45 생성하여 lotto에 숫자 넣기
       }
-      */
-      const selected = myLotto[k];
-      let colors;
-      if (selected <= 10) {
-        colors = "yellow";
-      } else if (selected <= 20) {
-        colors = "blue";
-      } else if (selected <= 30) {
-        colors = "red";
-      } else if (selected <= 40) {
-        colors = "black";
-      } else {
-        colors = "green";
+      for (let j = 0; j < 6; j++) {
+        const random = Math.floor(Math.random() * lotto.length); // 0~44
+        const selected = lotto.splice(random, 1)[0]; // 값 선택
+        myLotto.push(selected); // 6개 뽑아서 myLotto에 밀어넣는 반복문
+        // console.log(selected);
       }
-      ul.innerHTML += `
+      myLotto.sort((a, b) => {
+        return a - b; // 숫자 정렬
+      });
+      const ul = document.createElement("ul"); // ul 생성
+      lottoPaper.appendChild(ul); // #lottoPaper에 자식으로 넣기
+      // appendChild : 자식으로 추가
+      for (let k = 0; k < 6; k++) {
+        const selected = myLotto[k]; // 6개 뽑은 myLotto를 li로 추가
+        let colors;
+        if (selected <= 10) {
+          colors = "yellow";
+        } else if (selected <= 20) {
+          colors = "blue";
+        } else if (selected <= 30) {
+          colors = "red";
+        } else if (selected <= 40) {
+          colors = "black";
+        } else {
+          colors = "green";
+        }
+        /* if (myLotto[k] <= 10) {
+          ul.innerHTML += `
+          <li class="yellow">${myLotto[k]}</li>
+          `;
+        } else if (myLotto[k] <= 20) {
+          ul.innerHTML += `
+          <li class="blue">${myLotto[k]}</li>
+          `;
+        } else if (myLotto[k] <= 30) {
+          ul.innerHTML += `
+          <li class="red">${myLotto[k]}</li>
+          `;
+        } else if (myLotto[k] <= 40) {
+          ul.innerHTML += `
+          <li class="balck">${myLotto[k]}</li>
+          `;
+        } else {
+          ul.innerHTML += `
+          <li class="green">${myLotto[k]}</li>
+          `;
+        }
+        */
+        ul.innerHTML += `
         <li class="${colors}">${myLotto[k]}</li>
         `;
+      }
+    };
+    // makeLotto();
+
+    const radios = document.querySelectorAll("input[type='radio'][name='lotto']");
+    for (let i = 0; i < radios.length; i++) {
+      radios[i].addEventListener("change", function () {
+        lottoPaper.innerHTML = "";
+        for (let j = 0; j < this.value; j++) {
+          // function - this : 자기자신 선택
+          makeLotto();
+        }
+        gsap.from("#lottoPaper li", { scale: 0, ease: "elastic", duration: 1.5, stagger: 0.05 });
+      });
     }
-    gsap.from("#lottoPaper li", { scale: 0, ease: "elastic", duration: 1.5, stagger: 0.2 });
+    console.log(radios);
+
     console.log(myLotto);
   </script>
 </html>
