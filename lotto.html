@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LOTTO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/lotto.css" />
+    <script src="js/gsap/gsap.min.js"></script>
+  </head>
+  <body>
+    <div id="lottoPaper">
+      <!-- <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+      </ul> -->
+    </div>
+  </body>
+  <script>
+    const lottoPaper = document.querySelector("#lottoPaper");
+    const lotto = [];
+    const myLotto = [];
+    for (let i = 1; i < 46; i++) {
+      lotto.push(i);
+    }
+    for (let j = 0; j < 6; j++) {
+      const random = Math.floor(Math.random() * lotto.length);
+      const selected = lotto.splice(random, 1)[0];
+      myLotto.push(selected);
+      // console.log(selected);
+    }
+    myLotto.sort(function (a, b) {
+      return a - b;
+    });
+    const ul = document.createElement("ul");
+    lottoPaper.appendChild(ul);
+    // appendChild : 자식으로 추가
+    for (let k = 0; k < 6; k++) {
+      /* if (myLotto[k] <= 10) {
+        ul.innerHTML += `
+        <li class="yellow">${myLotto[k]}</li>
+        `;
+      } else if (myLotto[k] <= 20) {
+        ul.innerHTML += `
+        <li class="blue">${myLotto[k]}</li>
+        `;
+      } else if (myLotto[k] <= 30) {
+        ul.innerHTML += `
+        <li class="red">${myLotto[k]}</li>
+        `;
+      } else if (myLotto[k] <= 40) {
+        ul.innerHTML += `
+        <li class="balck">${myLotto[k]}</li>
+        `;
+      } else {
+        ul.innerHTML += `
+        <li class="green">${myLotto[k]}</li>
+        `;
+      }
+      */
+      const selected = myLotto[k];
+      let colors;
+      if (selected <= 10) {
+        colors = "yellow";
+      } else if (selected <= 20) {
+        colors = "blue";
+      } else if (selected <= 30) {
+        colors = "red";
+      } else if (selected <= 40) {
+        colors = "black";
+      } else {
+        colors = "green";
+      }
+      ul.innerHTML += `
+        <li class="${colors}">${myLotto[k]}</li>
+        `;
+    }
+    gsap.from("#lottoPaper li", { scale: 0, ease: "elastic", duration: 1.5, stagger: 0.2 });
+    console.log(myLotto);
+  </script>
+</html>

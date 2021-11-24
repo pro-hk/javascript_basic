@@ -1,0 +1,52 @@
+@import "vars";
+@import "mixins";
+
+#lottoPaper {
+  width: 400px;
+  height: 400px;
+  margin: 100px auto;
+  border: 10px solid #d9d9d9;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Lexend", "Noto Sans KR";
+  ul {
+    display: flex;
+    li {
+      width: 50px;
+      height: 50px;
+      font-size: 18px;
+      font-weight: 500;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #000;
+      color: #fff;
+      border-radius: 100px;
+      margin: 0 5px;
+      overflow: hidden;
+      &.red {
+        background-color: #f00;
+        @include longShadow(darken(#f00, 10), right, 30);
+      }
+      &.green {
+        background-color: #0f0;
+        @include longShadow(darken(#0f0, 10), right, 30);
+      }
+      &.yellow {
+        background-color: #ff0;
+        @include longShadow(darken(#ff0, 10), right, 30);
+      }
+      &.blue {
+        background-color: #00f;
+        @include longShadow(darken(#00f, 10), right, 30);
+      }
+      &.black {
+        background-color: #000;
+        @include longShadow(darken(#000, 10), right, 30);
+      }
+    }
+  }
+}
