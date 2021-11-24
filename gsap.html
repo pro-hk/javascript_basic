@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <script src="js/gsap/gsap.min.js"></script>
+    <style>
+      .box {
+        width: 100px;
+        height: 100px;
+      }
+      .red {
+        background-color: #f00;
+      }
+      .green {
+        background-color: #0f0;
+      }
+      .blue {
+        background-color: #00f;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box red"></div>
+    <div class="box green"></div>
+    <div class="box blue"></div>
+  </body>
+  <script>
+    // const name = "장성호";
+    // const age = 20;
+
+    // const 장성호 = {
+    //   nickName: "장성호",
+    //   age: 20,
+    // };
+    // console.log(장성호.nickName);
+
+    // gsap.to(".red", { x: 1000, y: 200, backgroundColor: "#00f", duration: 1, delay: 1, ease: "bounce", rotation: 360 });
+    // gsap.from(".green", { x: 1000, scale: 2, duration: 1, delay: 1, ease: "bounce" });
+    // gsap.fromTo(".blue", { x: 1000 }, { x: 200, delay: 1, ease: "steps(10)" });
+    // to : 보내기 , from : 현재 위치로 돌아오기, fromTo
+    gsap.from(".box", { scale: 0, ease: "elastic", duration: 1.5, delay: 1, stagger: 0.2 });
+    // stager: 시간차 주기
+  </script>
+</html>
