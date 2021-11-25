@@ -28,23 +28,25 @@
       input:checked ~ span:after {
         background-color: $main-color;
         border: none;
-        content: "\2713";
-        color: $white-color;
         @include longShadow(darken($main-color, 20), right, 10);
       }
       span {
         display: flex;
         align-items: center;
         user-select: none;
+        font-size: 0;
         &:after {
-          content: "";
+          content: attr(data-num);
+          font-size: 20px;
           @include flexCenter();
-          @include box(24px);
+          @include box(40px);
           border: 2px solid $gray-color;
           border-radius: 100px;
           margin-left: 6px;
           box-sizing: border-box;
           overflow: hidden;
+          background-color: #000;
+          color: $white-color;
         }
       }
     }
